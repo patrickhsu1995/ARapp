@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 
 class GoogleMapsViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Create a GMSCameraPosition that tells the map to display the
