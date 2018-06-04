@@ -21,6 +21,10 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vNr-UJ-tw3">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="7eG-DX-U08" appends="YES" id="hZT-H7-7HA"/>
+                                </connections>
                             </arscnView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -43,6 +47,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="7eG-DX-U08"/>
             </objects>
             <point key="canvasLocation" x="1576.8115942028987" y="33.423913043478265"/>
         </scene>
@@ -67,6 +72,7 @@
         <!--Navigation Controller-->
         <scene sceneID="2bG-XS-RKW">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ced-gN-XfS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iwn-lQ-M2P" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6QX-mX-3s4">
@@ -78,7 +84,6 @@
                         <segue destination="BV1-FR-VrT" kind="relationship" relationship="rootViewController" id="Y2m-v8-fYg"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ced-gN-XfS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="669.56521739130437" y="33.423913043478265"/>
         </scene>
