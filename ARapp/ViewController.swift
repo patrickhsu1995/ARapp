@@ -10,36 +10,54 @@ import UIKit
 import SceneKit
 import ARKit
 import GoogleMaps
+import ARCL
+import CoreLocation
 
 class ViewController: UIViewController, ARSCNViewDelegate {
+    var sceneLocationView = SceneLocationView()
 
     @IBOutlet var sceneView: ARSCNView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        sceneLocationView.run()
+        view.addSubview(sceneLocationView)
+//
+//        // Set the view's delegate
+//        sceneView.delegate = self
+//
+//        // Show statistics such as fps and timing information
+//        sceneView.showsStatistics = true
+//
+//        // Create a new scene
+//        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+//
+//        // Set the scene to the view
+//        sceneView.scene = scene
+        let coordinate = CLLocationCoordinate2D(latitude: 43.642509, longitude: -79.387039)
+        let location = CLLocation(coordinate: coordinate, altitude: 570)
+        let image = UIImage(named: "pin")!
         
-        // Set the view's delegate
-        sceneView.delegate = self
-        
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
-        
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
-        // Set the scene to the view
-        sceneView.scene = scene
+        let annotationNode = LocationAnnotationNode(location: location, image: image)
+        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
         addTapGestureToSceneView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        sceneLocationView.frame = view.bounds
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-
-        // Run the view's session
-        sceneView.session.run(configuration)
+//        // Create a session configuration
+//        let configuration = ARWorldTrackingConfiguration()
+//        configuration.planeDetection = .horizontal
+//
+//        // Run the view's session
+//        sceneView.session.run(configuration)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -68,13 +86,26 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     //add a box to scene
     func addBox() {
         let box = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0)
+//
+//        let boxNode = SCNNode()
+//        boxNode.geometry = box
+//        boxNode.position = SCNVector3(0, 0, -0.2)
+//        boxNode.name = "box"
+//
+        let coordinate = CLLocationCoordinate2D(latitude: 43.6426, longitude: -79.3871)
+        let location = CLLocation(coordinate: coordinate, altitude: 102)
         
-        let boxNode = SCNNode()
-        boxNode.geometry = box
-        boxNode.position = SCNVector3(0, 0, -0.2)
-        boxNode.name = "box"
+        let annotationNode = LocationNode(location: location)
+        annotationNode.geometry = box
+        annotationNode.position = SCNVector3(0, 0, -0.2)
+        annotationNode.name = "box"
+
+        sceneView.scene.rootNode.addChildNode(annotationNode)
+        print(annotationNode.location!)
+    }
+    
+    func dropItem(){
         
-        sceneView.scene.rootNode.addChildNode(boxNode)
     }
     
     func addTapGestureToSceneView(){
