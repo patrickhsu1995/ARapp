@@ -16,6 +16,9 @@
 		6501219D20BE0BAE000EF8B4 /* ARappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6501219C20BE0BAE000EF8B4 /* ARappTests.swift */; };
 		650121A820BE0BAF000EF8B4 /* ARappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650121A720BE0BAF000EF8B4 /* ARappUITests.swift */; };
 		650619DA20C08E16001B46EE /* GoogleMapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650619D920C08E16001B46EE /* GoogleMapsViewController.swift */; };
+		654C733C20C6F6B0006737D6 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C733B20C6F6B0006737D6 /* SignInViewController.swift */; };
+		654C733E20C6F76E006737D6 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654C733D20C6F76E006737D6 /* SignUpViewController.swift */; };
+		654C734020C6FCD3006737D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 654C733F20C6FCD3006737D6 /* GoogleService-Info.plist */; };
 		A83A53DFFADEC46E162610EA /* libPods-ARapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EB35C3250E1727C37DDE1A7 /* libPods-ARapp.a */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +56,9 @@
 		650121A720BE0BAF000EF8B4 /* ARappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARappUITests.swift; sourceTree = "<group>"; };
 		650121A920BE0BAF000EF8B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		650619D920C08E16001B46EE /* GoogleMapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsViewController.swift; sourceTree = "<group>"; };
+		654C733B20C6F6B0006737D6 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		654C733D20C6F76E006737D6 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		654C733F20C6FCD3006737D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		75CB17E78C49B3FD9ECAE32C /* Pods-ARapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARapp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ARapp/Pods-ARapp.debug.xcconfig"; sourceTree = "<group>"; };
 		7EB35C3250E1727C37DDE1A7 /* libPods-ARapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ARapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -118,9 +124,12 @@
 			isa = PBXGroup;
 			children = (
 				6501218520BE0BAC000EF8B4 /* AppDelegate.swift */,
+				654C733F20C6FCD3006737D6 /* GoogleService-Info.plist */,
 				6501218720BE0BAC000EF8B4 /* art.scnassets */,
 				6501218920BE0BAC000EF8B4 /* ViewController.swift */,
 				6501218B20BE0BAC000EF8B4 /* Main.storyboard */,
+				654C733D20C6F76E006737D6 /* SignUpViewController.swift */,
+				654C733B20C6F6B0006737D6 /* SignInViewController.swift */,
 				650619D920C08E16001B46EE /* GoogleMapsViewController.swift */,
 				6501218E20BE0BAE000EF8B4 /* Assets.xcassets */,
 				6501219020BE0BAE000EF8B4 /* LaunchScreen.storyboard */,
@@ -263,6 +272,7 @@
 			files = (
 				6501218820BE0BAC000EF8B4 /* art.scnassets in Resources */,
 				6501219220BE0BAE000EF8B4 /* LaunchScreen.storyboard in Resources */,
+				654C734020C6FCD3006737D6 /* GoogleService-Info.plist in Resources */,
 				6501218F20BE0BAE000EF8B4 /* Assets.xcassets in Resources */,
 				6501218D20BE0BAC000EF8B4 /* Main.storyboard in Resources */,
 			);
@@ -330,9 +340,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				654C733C20C6F6B0006737D6 /* SignInViewController.swift in Sources */,
 				6501218A20BE0BAC000EF8B4 /* ViewController.swift in Sources */,
 				6501218620BE0BAC000EF8B4 /* AppDelegate.swift in Sources */,
 				650619DA20C08E16001B46EE /* GoogleMapsViewController.swift in Sources */,
+				654C733E20C6F76E006737D6 /* SignUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

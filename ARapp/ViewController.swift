@@ -20,6 +20,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
 
     @IBOutlet var sceneView: ARSCNView!
     
+    var ref: DatabaseReference!
+    
     var locationManager = CLLocationManager()
     var currentCoordiantes: CLLocationCoordinate2D!
     var currentAltitude: CLLocationDistance!
@@ -32,6 +34,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         //initialize location
         self.locationManager.delegate = self
         self.locationManager.startUpdatingLocation()
+        
+        //render oobjects
+        renderObjects()
         
         //adding tap gesture to the view
         addTapGestureToSceneView()
@@ -53,12 +58,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        // Create a session configuration
-//        let configuration = ARWorldTrackingConfiguration()
-//        configuration.planeDetection = .horizontal
-//
-//        // Run the view's session
-//        sceneView.session.run(configuration)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -68,22 +67,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         sceneView.session.pause()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
+    func renderObjects(){
+        
     }
-    
 
-    // MARK: - ARSCNViewDelegate
-    
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
-    }
-*/
     //add a box to scene
     func addBox() -> SCNNode {
         let box = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0)
@@ -104,9 +91,38 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         //create the object to be dropped
         let dropObject = LocationAnnotationNode(location: objDropLocation, image: image)
         
+        //put dropped item into database
+        addDropToDataBase()
+        
         print("attempting to add object to current location")
+        
+        //add to view
         sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: dropObject)
     }
+    
+    func addDropToDataBase(){
+        //generate random object ID
+        let uuid = UUID().uuidString
+        
+        self.ref = Database.database().reference()
+        let itemsReference = self.ref.child("items")
+        
+        //get current logged in userid
+        let uid = Auth.auth().currentUser?.uid
+        
+        let newItemReference = itemsReference.child(uuid)
+        newItemReference.setValue(["lattitude": currentCoordiantes.latitude, "longitude": currentCoordiantes.longitude, "altitude": currentAltitude, "user":uid!])
+        
+        //add to the user who dropped it
+        //TODO
+        
+    }
+    
+    func calculateRadius(){
+        //TODO
+        return
+    }
+    
     
     func addTapGestureToSceneView(){
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.didTap(withGestureRecognizer:)))
@@ -114,12 +130,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     }
     
     @objc func didTap(withGestureRecognizer recognizer: UIGestureRecognizer){
-//        let tapLocation = recognizer.location(in: sceneView)
-//        let hitTestResults = sceneView.hitTest(tapLocation)
-//        guard let node = hitTestResults.first?.node else {return}
-//        node.removeFromParentNode()
+        promptUser()
         dropItem()
-
+    }
+    
+    func promptUser(){
+        
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
@@ -137,3 +153,4 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         
     }
 }
+

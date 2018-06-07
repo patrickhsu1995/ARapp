@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import Firebase
 
 class GoogleMapsViewController: UIViewController,GMSMapViewDelegate,CLLocationManagerDelegate {
 
@@ -22,6 +23,12 @@ class GoogleMapsViewController: UIViewController,GMSMapViewDelegate,CLLocationMa
         
         self.locationManager.delegate = self
         self.locationManager.startUpdatingLocation()
+        
+        renderObjects()
+    }
+    
+    func renderObjects(){
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
@@ -32,20 +39,6 @@ class GoogleMapsViewController: UIViewController,GMSMapViewDelegate,CLLocationMa
         
         self.locationManager.stopUpdatingLocation()
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
