@@ -44,8 +44,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        currentAltitude = locations.last?.altitude
-        currentCoordiantes = location
+        self.currentAltitude = locations.last?.altitude
+        self.currentCoordiantes = location
         print(currentCoordiantes)
     }
     
@@ -85,7 +85,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     
     //create and drop a pin (tentative) at the user's height
     func dropItem(){
-        let objDropLocation = CLLocation(coordinate: currentCoordiantes, altitude: currentAltitude)
+        let objDropLocation = CLLocation(coordinate: self.currentCoordiantes, altitude: self.currentAltitude)
         let image = UIImage(named: "pin")!
         
         //create the object to be dropped
@@ -111,7 +111,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         let uid = Auth.auth().currentUser?.uid
         
         let newItemReference = itemsReference.child(uuid)
-        newItemReference.setValue(["lattitude": currentCoordiantes.latitude, "longitude": currentCoordiantes.longitude, "altitude": currentAltitude, "user":uid!])
+        newItemReference.setValue(["lattitude": self.currentCoordiantes.latitude, "longitude": self.currentCoordiantes.longitude, "altitude": self.currentAltitude, "user":uid!])
         
         //add to the user who dropped it
         //TODO

@@ -15,6 +15,8 @@ class GoogleMapsViewController: UIViewController,GMSMapViewDelegate,CLLocationMa
     @IBOutlet var mapView: GMSMapView!
     
     var locationManager = CLLocationManager()
+    var ref: DatabaseReference!
+    var handle: DatabaseHandle?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +30,12 @@ class GoogleMapsViewController: UIViewController,GMSMapViewDelegate,CLLocationMa
     }
     
     func renderObjects(){
-        
+        self.ref = Database.database().reference()
+        let itemsRef = self.ref.child("items")
+        handle = itemsRef.observe(.value, with: {(snapshot) in
+            let enumerator = snapshot.children
+            while let rest = enumerator.nextObject() as?
+        })
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
