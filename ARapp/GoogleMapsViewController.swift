@@ -26,16 +26,34 @@ class GoogleMapsViewController: UIViewController,GMSMapViewDelegate,CLLocationMa
         self.locationManager.delegate = self
         self.locationManager.startUpdatingLocation()
         
-        renderObjects()
+        renderMarkers()
     }
     
-    func renderObjects(){
+    func renderMarkers(){
         self.ref = Database.database().reference()
         let itemsRef = self.ref.child("items")
         handle = itemsRef.observe(.value, with: {(snapshot) in
             let enumerator = snapshot.children
-            while let rest = enumerator.nextObject() as?
+            while let rest = enumerator.nextObject() as? DataSnapshot{
+                //access this object as a dictionary
+                let obj = rest.value! as! NSDictionary
+                
+                //create lat and long variables
+                let lat: Double = obj["lattitude"]! as! Double
+                let long: Double = obj["longitude"]! as! Double
+                
+                //create marker
+                let title = obj["user"]! as? String
+                self.addMarker(lat, long, title!)
+            }
         })
+    }
+    
+    func addMarker(_ lat: CLLocationDegrees, _ long: CLLocationDegrees, _ title: String){
+        let position = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        let marker = GMSMarker(position: position)
+        marker.title = title
+        marker.map = self.mapView
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){

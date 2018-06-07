@@ -20,7 +20,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
 
     @IBOutlet var sceneView: ARSCNView!
     
+    let RADIUS: Double = 50.0
     var ref: DatabaseReference!
+    var handle: DatabaseHandle?
     
     var locationManager = CLLocationManager()
     var currentCoordiantes: CLLocationCoordinate2D!
@@ -68,7 +70,31 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     }
     
     func renderObjects(){
-        
+        self.ref = Database.database().reference()
+        let itemsRef = self.ref.child("items")
+        handle = itemsRef.observe(.value, with: {(snapshot) in
+            let enumerator = snapshot.children
+            while let rest = enumerator.nextObject() as? DataSnapshot{
+                //access this object as a dictionary
+                let obj = rest.value! as! NSDictionary
+                
+                let lat: Double = obj["lattitude"]! as! Double
+                let long: Double = obj["longitude"]! as! Double
+                let alt: Double = obj["altitude"]! as! Double
+                
+                //create a temporary coordinate object
+                let tempCoord: CLLocationCoordinate2D? = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                
+                if self.withinRadius(self.RADIUS, tempCoord!) {
+                    let objDisplayLocation = CLLocation(coordinate: tempCoord!, altitude: alt)
+                    let image = UIImage(named: "pin")!
+                    
+                    //create the object to be dropped
+                    let displayObject = LocationAnnotationNode(location: objDisplayLocation, image: image)
+                    self.sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: displayObject)
+                }
+            }
+        })
     }
 
     //add a box to scene
@@ -118,9 +144,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         
     }
     
-    func calculateRadius(){
+    func withinRadius(_ radius: Double, _ tempCoord: CLLocationCoordinate2D) -> Bool{
         //TODO
-        return
+        let loc1 = CLLocation(latitude: currentCoordiantes.latitude, longitude: currentCoordiantes.longitude)
+        let loc2 = CLLocation(latitude: tempCoord.latitude, longitude: tempCoord.longitude)
+        return (loc1.distance(from: loc2) <= radius)
     }
     
     
