@@ -17,8 +17,8 @@ import Firebase
 
 class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDelegate {
     var sceneLocationView = SceneLocationView()
-
-    @IBOutlet var sceneView: ARSCNView!
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     
     let RADIUS: Double = 50.0
     var ref: DatabaseReference!
@@ -31,7 +31,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         sceneLocationView.run()
-        view.addSubview(sceneLocationView)
+        scrollView.addSubview(sceneLocationView)
         
         //initialize location
         self.locationManager.delegate = self
@@ -42,6 +42,21 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         
         //adding tap gesture to the view
         addTapGestureToSceneView()
+        
+        //add map view
+        let mapView = storyboard!.instantiateViewController(withIdentifier: "GoogleMapsViewController") as! GoogleMapsViewController
+        mapView.view.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(mapView.view)
+        
+        addChildViewController(mapView)
+        mapView.didMove(toParentViewController: self)
+        
+        //scrolling
+        var mapViewFrame : CGRect = mapView.view.frame
+        mapViewFrame.origin.x = self.view.frame.width
+        mapView.view.frame = mapViewFrame
+        
+        scrollView.contentSize = CGSize(width: self.view.frame.width * 2, height: self.view.frame.size.height)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -66,7 +81,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
         super.viewWillDisappear(animated)
         
         // Pause the view's session
-        sceneView.session.pause()
+        sceneLocationView.session.pause()
     }
     
     func renderObjects(){
@@ -160,6 +175,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, CLLocationManagerDele
     @objc func didTap(withGestureRecognizer recognizer: UIGestureRecognizer){
         promptUser()
         dropItem()
+    }
+    
+    func addSwipeToSceneView(){
+        
     }
     
     func promptUser(){

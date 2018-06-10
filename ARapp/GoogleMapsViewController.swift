@@ -12,8 +12,8 @@ import Firebase
 
 class GoogleMapsViewController: UIViewController,GMSMapViewDelegate,CLLocationManagerDelegate {
 
-    @IBOutlet var mapView: GMSMapView!
     
+    @IBOutlet weak var mapView: GMSMapView!
     var locationManager = CLLocationManager()
     var ref: DatabaseReference!
     var handle: DatabaseHandle?

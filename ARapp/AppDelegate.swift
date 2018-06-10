@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         //API keys for Google Maps and Google Places
-        GMSServices.provideAPIKey("")
-        GMSPlacesClient.provideAPIKey("")
+        GMSServices.provideAPIKey("AIzaSyBy79kbbBrbxb_DNAdVZXR2MRaOXLv8r5I")
+        GMSPlacesClient.provideAPIKey("AIzaSyBy79kbbBrbxb_DNAdVZXR2MRaOXLv8r5I")
         
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
